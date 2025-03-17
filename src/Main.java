@@ -1,3 +1,6 @@
 public class Main {
-    SameerFightGameLogic logic = new SameerFightGameLogic();
+    public static void main(String[] args) {
+        SameerFightGameLogic logic = new SameerFightGameLogic();
+        logic.run();
+    }
 }
