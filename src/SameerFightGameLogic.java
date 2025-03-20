@@ -12,18 +12,22 @@ public class SameerFightGameLogic extends JPanel implements ActionListener {
     private Enemy enemy;
     private Map world;
     private Shop shop;
-    private JButton button;
+    private JButton continueButton;
     private String currMessage;
-    private JTextField box;
     private ArrayList<String> dialouge;
+    private int diagTracker;
+    private JTextField nameBox;
 
     public SameerFightGameLogic() {
-        button = new JButton("Continue");
-        button.addActionListener(this);
-        add(button);
-        box = new JTextField(10);
+        continueButton = new JButton("Continue");
+        continueButton.addActionListener(this);
+        nameBox = new JTextField(10);
+        add(continueButton);
+        add(nameBox);
+        nameBox.setVisible(false);
         compileDialogue();
-        currMessage = dialouge.get(0);
+        diagTracker = 0;
+        currMessage = dialouge.get(diagTracker);
     }
 
 /*    public void run() {
@@ -58,16 +62,23 @@ public class SameerFightGameLogic extends JPanel implements ActionListener {
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.BLACK);
         g.drawString(currMessage, 20, 20);
-        button.setLocation(getWidth() / 2 - 100, 20);
-
+        continueButton.setLocation(getWidth() / 2 - 100, 20);
+        nameBox.setLocation(100, 100);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button) {
-            currMessage = dialouge.get(1);
-            box.setLocation(getWidth() / 2 + 100, 20);
-            add(box);
+        if (e.getSource() == continueButton) {
+            if (diagTracker + 1 < dialouge.size()) {
+                diagTracker++;
+                if(diagTracker >= 2) {
+                    nameBox.setVisible(true);
+                    System.out.println("here");
+                }
+            }
+            currMessage = dialouge.get(diagTracker);
+
+            validate();
             repaint();
         }
     }
