@@ -1,0 +1,8 @@
+Welcome to Sameer's Fight Game!
+This is a sequel to Sameer's Fight Game with added features, and a new remastered approach to the original game!
+Please enter your name:
+huh? Weird name. Oh well it doesn't matter, because your adventure begins NOW!
+Would you like to play through the tutorial before starting?
+Okay! One private void tutorial() call coming right up!
+Oh, ok, i guess those hours I spent making the tutorial aren't worth it because SOMEONE put on their big boy pants and though "OhHhHhHhHhH i CaN dO tHiS mYsElF bEcAuSe I gO tO BrOoKlYn TeCh"
+Fine have fun then i guess

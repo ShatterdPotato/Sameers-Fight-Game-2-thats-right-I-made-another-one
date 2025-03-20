@@ -1,16 +1,32 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SameerFightGameLogic {
+public class SameerFightGameLogic extends JPanel implements ActionListener {
     private Player player;
     private Enemy enemy;
     private Map world;
     private Shop shop;
-    private Scanner scanner;
+    private JButton button;
+    private String currMessage;
+    private JTextField box;
+    private ArrayList<String> dialouge;
+
     public SameerFightGameLogic() {
-        scanner = new Scanner(System.in);
+        button = new JButton("Continue");
+        button.addActionListener(this);
+        add(button);
+        box = new JTextField(10);
+        compileDialogue();
+        currMessage = dialouge.get(0);
     }
 
-    public void run() {
+/*    public void run() {
         System.out.println("Welcome to Sameer's Fight Game!\n");
         System.out.print("This is a sequel to Sameer's Fight Game with added features, \nand a new remastered approach to the original game!\n(Press enter to continue):");
         scanner.nextLine();
@@ -34,6 +50,37 @@ public class SameerFightGameLogic {
             }
         }
 
+    }*/
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.setColor(Color.BLACK);
+        g.drawString(currMessage, 20, 20);
+        button.setLocation(getWidth() / 2 - 100, 20);
+
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button) {
+            currMessage = dialouge.get(1);
+            box.setLocation(getWidth() / 2 + 100, 20);
+            add(box);
+            repaint();
+        }
+    }
+
+    private void compileDialogue() {
+        dialouge = new ArrayList<>();
+        try {
+            Scanner fileScanner = new Scanner(new File("src\\dialogue.txt"));
+            while (fileScanner.hasNext()) {
+                dialouge.add(fileScanner.nextLine());
+            }
+        } catch(IOException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
 }
