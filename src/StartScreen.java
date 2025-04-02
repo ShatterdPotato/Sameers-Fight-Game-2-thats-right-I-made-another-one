@@ -15,6 +15,7 @@ public class StartScreen extends JPanel implements ActionListener {
     private ArrayList<String> dialouge;
     private int diagTracker;
     private JTextField nameBox;
+    private Player player;
 
     public StartScreen() {
         add(continueButton = new JButton("Continue"));
@@ -48,6 +49,7 @@ public class StartScreen extends JPanel implements ActionListener {
                     break;
                 case 3:
                     String name = nameBox.getText();
+                    player = new Player(20, 0, name);
                     nameBox.setVisible(false);
                     currMessage = name + dialouge.get(diagTracker);
                     break;
@@ -63,7 +65,7 @@ public class StartScreen extends JPanel implements ActionListener {
                     break;
                 case 7:
                     if (continueButton.getText().equals("Start Game")) {
-                        GameWindow.cycleScreen(new MapScreen(new Map()));
+                        GameWindow.cycleScreen(new MapScreen(new Map(), player));
                     }
                     continueButton.setText("Start Game");
                 default:

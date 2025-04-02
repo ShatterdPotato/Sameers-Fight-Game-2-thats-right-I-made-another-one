@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
 public class Character {
     //instance variables
     private int health;
     private int attackDMG;
     private String name;
+    private BufferedImage sprite;
 
     public Character(int health, int attackDMG, String name) {
         this.health = health;
@@ -20,6 +24,14 @@ public class Character {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSprite(BufferedImage image) {
+        sprite = image;
     }
 
     //increments the enemy's HP by given amount
