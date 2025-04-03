@@ -32,7 +32,7 @@ public class MapScreen extends JPanel implements KeyListener {
     private void paintPlayer(Graphics2D g2d) {
         try {
             BufferedImage player = ImageIO.read(new File("src\\player.png"));
-            g2d.drawImage(player, map.getPlayerCoords()[0] * 10, map.getPlayerCoords()[1] * 10, null);
+            g2d.drawImage(player, map.getPlayerCoords()[0] * 100, map.getPlayerCoords()[1] * 100, null);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -22,6 +22,7 @@ public class GameWindow {
         currScreen = newScreen;
         window.getContentPane().removeAll();
         window.add(currScreen);
+        currScreen.requestFocusInWindow();
         window.validate();
     }
 }

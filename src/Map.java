@@ -3,14 +3,14 @@ public class Map {
     private int[] playerCoords;
 
     public Map() {
-        mapGrid = new char[80][60];
+        mapGrid = new char[8][6];
         for (int row = 0; row < mapGrid.length; row++) {
             for (int col = 0; col < mapGrid[0].length; col++) {
                 mapGrid[row][col] = '#';
             }
         }
-        mapGrid[40][30] = '$';
-        playerCoords = new int[]{9, 4};
+        mapGrid[4][4] = '$';
+        playerCoords = new int[]{4, 4};
     }
 
     public int[] getPlayerCoords() {
@@ -34,7 +34,7 @@ public class Map {
                 }
                 break;
             case 83: //s
-                if (playerCoords[1] < mapGrid.length - 1) {
+                if (playerCoords[1] < mapGrid.length - 2) {
                     mapGrid[playerCoords[0]][playerCoords[1]] = '#';
                     mapGrid[playerCoords[0]][playerCoords[1] + 1] = '$';
                     playerCoords[1]++;

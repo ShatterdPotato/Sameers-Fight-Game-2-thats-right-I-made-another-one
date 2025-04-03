@@ -22,7 +22,7 @@ public class FightScreen extends JPanel implements ActionListener {
 
     @Override
     public void paintComponent(Graphics g) {
-
+        
     }
 
     @Override
