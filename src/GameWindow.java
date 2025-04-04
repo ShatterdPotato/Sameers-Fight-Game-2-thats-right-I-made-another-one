@@ -7,7 +7,7 @@ public class GameWindow {
         currScreen = screen;
         window = new JFrame("Sameer's Fight Game");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 600);
+        window.setSize(815, 630);
         window.setLocationRelativeTo(null);
 
         window.add(currScreen);
@@ -24,5 +24,6 @@ public class GameWindow {
         window.add(currScreen);
         currScreen.requestFocusInWindow();
         window.validate();
+        window.repaint();
     }
 }
