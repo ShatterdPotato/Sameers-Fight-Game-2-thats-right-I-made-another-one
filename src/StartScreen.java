@@ -65,7 +65,7 @@ public class StartScreen extends JPanel implements ActionListener {
                     break;
                 case 7:
                     if (continueButton.getText().equals("Start Game")) {
-                        GameWindow.cycleScreen(new MapScreen(new Map(), player));
+                        GameWindow.cycleScreen(new MapScreen(player));
                     }
                     continueButton.setText("Start Game");
                 default:

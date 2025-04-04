@@ -2,6 +2,7 @@ public class Enemy extends Character{
 
     public Enemy() {
         super(20, ((int) (Math.random() * 5) + 1), "name");
+        chooseName();
     }
 
     //generates a random name for the enemy to add variety

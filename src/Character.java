@@ -26,6 +26,10 @@ public class Character {
         return name;
     }
 
+    public BufferedImage getSprite() {
+        return sprite;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
