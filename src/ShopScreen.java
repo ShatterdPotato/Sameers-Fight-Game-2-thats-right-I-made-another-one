@@ -12,14 +12,18 @@ public class ShopScreen extends JPanel implements ActionListener {
     private Shop shop;
     private Player player;
     private JTextArea cashierText;
+    private JTextArea shopMenu;
     private JTextField textBox;
     private JButton confirmButton;
     private JButton cancelButton;
+    private JLabel numCoins;
     private int lastPrice;
+
 
     public ShopScreen(Player player) {
         this.player = player;
         this.shop = new Shop(player);
+
         cashierText = new JTextArea("welcome to macdonl what need");
         cashierText.setEditable(false);
         cashierText.setLineWrap(true);
@@ -28,18 +32,24 @@ public class ShopScreen extends JPanel implements ActionListener {
         cashierText.setWrapStyleWord(true);
         cashierText.setBounds(402, 34, 223, 67);
         cashierText.setLocation(402, 34);
+
         confirmButton = new JButton("Yeah");
-        cancelButton = new JButton("Nah");
         confirmButton.setVisible(false);
-        cancelButton.setVisible(false);
         confirmButton.addActionListener(this);
+
+        cancelButton = new JButton("Nah");
+        cancelButton.setVisible(false);
         cancelButton.addActionListener(this);
+
         textBox = new JTextField(15);
         textBox.addActionListener(this);
-        add(cashierText);
+
+        numCoins = new JLabel(String.valueOf(player.getCoins()));
+        numCoins.setFont(new Font("Arial", Font.BOLD, 40));
+
         add(textBox);
-        add(confirmButton);
-        add(cancelButton);
+        add(numCoins);
+        createMenu();
     }
 
     public void paintComponent(Graphics g) {
@@ -49,16 +59,20 @@ public class ShopScreen extends JPanel implements ActionListener {
         }   catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        cashierText.setLocation(402, 34);
+        textBox.setLocation(239,283);
+        confirmButton.setLocation(238, 297);
+        cancelButton.setLocation(338, 297);
+        numCoins.setLocation(75, 10);
+        numCoins.setText(String.valueOf(player.getCoins()));
         add(cashierText);
         add(textBox);
         add(confirmButton);
         add(cancelButton);
-        cashierText.setLocation(402, 34);
-        textBox.setLocation(239,283);
-        confirmButton.setLocation(258, 297);
-        cancelButton.setLocation(282, 297);
-        textBox.setFocusable(true);
+        add(numCoins);
         displayWallet(g);
+        shopMenu.setBounds(460, 275, 320, 310);
+        shopMenu.setLocation(460,275);
     }
 
 
@@ -72,9 +86,9 @@ public class ShopScreen extends JPanel implements ActionListener {
                 cashierText.setText(Misc.extraneousResponse());
             }   else {
                 textBox.setVisible(false);
-
+                remove(textBox);
                 confirmButton.setVisible(true);
-                cancelButton.setVisible(false);
+                cancelButton.setVisible(true);
                 cashierText.setText("Ok that'll be " + lastPrice + " coins. Buy?");
             }
         }   else if (e.getSource() == confirmButton) {
@@ -83,17 +97,19 @@ public class ShopScreen extends JPanel implements ActionListener {
                 if (player.getCoins() >= lastPrice) {
                     player.setCoins(player.getCoins() - lastPrice);
                     shop.buyItem(lastPrice);
+                    cashierText.setText("Ok there you go, one " + player.getInventory().getLast().getName());
+                    confirmButton.setText(":)");
                 } else {
                     cashierText.setText("BAHAHAHA yo broke ahh cant even afford stuff from McDonalds. GET OUT!");
                     confirmButton.setVisible(true);
                     confirmButton.setText(":(");
                 }
-            }   else if (confirmButton.getText().equals(":(")) {
+            }   else if (confirmButton.getText().equals(":(") || confirmButton.getText().equals(":)")) {
                 GameWindow.cycleScreen(new MapScreen(player));
             }
         } else if (e.getSource() == cancelButton) {
             cancelButton.setVisible(false);
-            cashierText.setText("Ok then? Why tf did you ask then? GET OUT!");
+            cashierText.setText("Ok? Why tf did you ask then? GET OUT!");
             confirmButton.setVisible(true);
             confirmButton.setText(":(");
         }
@@ -110,6 +126,27 @@ public class ShopScreen extends JPanel implements ActionListener {
         }
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString(": " + player.getCoins(), 64, 0);
+    }
+
+    private void createMenu() {
+        shopMenu = new JTextArea();
+        shopMenu.setEditable(false);
+        shopMenu.setLineWrap(true);
+        shopMenu.setFocusable(false);
+        shopMenu.setWrapStyleWord(true);
+        shopMenu.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 11));
+        shopMenu.setText(
+                "                      MENU                    \n" +
+                "1. Food (Random)......................Cost:5 \n" +
+                "2. Wooden Sword..............DMG: 3,  Cost:10\n" +
+                "3. Alarm Clock...............DMG: 5,  Cost:20\n" +
+                "4. Gold Scar.................DMG: 7,  Cost:35\n" +
+                "5. College Rejection Letter..DMG: 5,  Cost:45\n" +
+                "6. Dark Magic for Dummies....DMG: 10, Cost:65\n" +
+                "7. Legendary Zenith..........DMG: 15, Cost:65\n"
+        );
+        shopMenu.setBounds(460, 275, 320, 310);
+        shopMenu.setLocation(460,275);
+        add(shopMenu);
     }
 }

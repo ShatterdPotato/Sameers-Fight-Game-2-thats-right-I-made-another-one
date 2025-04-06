@@ -16,6 +16,7 @@ public class Shop {
             System.out.println(e.getMessage());
         }
         this.player = player;
+        stockArsenal();
     }
 
     public BufferedImage getSprite() {
@@ -59,16 +60,6 @@ public class Shop {
             default:
                 return -2;
         }
-/*        if (req.equalsIgnoreCase("food")) {
-            player.addFood(generateFood());
-            return true;
-        }   else {
-            if (checkArsenal(req) != null) {
-                player.addWeapons(checkArsenal(req));
-                return true;
-            }
-        }
-        return false;*/
     }
 
     private Food generateFood() {
@@ -97,13 +88,13 @@ public class Shop {
         }
     }
 
-    private void stockArsenal(String req) {
+    private void stockArsenal() {
         arsenal = new ArrayList<>();
-        arsenal.add(new Weapon("Wooden Sword", 2));
-        arsenal.add(new Weapon("Gold Scar", 5));
-        arsenal.add(new Weapon("Dark Magic for Dummies", 8));
+        arsenal.add(new Weapon("Wooden Sword", 3));
+        arsenal.add(new Weapon("Gold Scar", 7));
+        arsenal.add(new Weapon("Dark Magic for Dummies", 10));
         arsenal.add(new Weapon("Legendary Zenith", 15));
-        arsenal.add(new Weapon("Alarm Clock", 7 ));
+        arsenal.add(new Weapon("Alarm Clock", 5 ));
         arsenal.add(new Weapon("College Rejection Letter", 5));
     }
 
@@ -138,9 +129,11 @@ public class Shop {
 
     public void buyItem(int price) {
         if (price == 5) {
-            player.addFood(generateFood());
+            System.out.println("Buying food!");
+            player.addItem(generateFood());
         }   else {
-            player.addWeapons(checkArsenal(price));
+            System.out.println("Buying weapon");
+            player.addItem(checkArsenal(price));
         }
     }
 }
