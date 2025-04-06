@@ -1,21 +1,29 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Character {
-    //instance variables
+
     private int health;
+    private int maxHealth;
     private int attackDMG;
     private String name;
     private BufferedImage sprite;
 
     public Character(int health, int attackDMG, String name) {
         this.health = health;
+        this.maxHealth = health;
         this.attackDMG = attackDMG;
         this.name = name;
     }
-    //getters
+
     public int getHealth() {
         return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public int getAttackDMG() {
@@ -34,27 +42,28 @@ public class Character {
         this.name = name;
     }
 
-    public void setSprite(BufferedImage image) {
-        sprite = image;
+    public void setSprite(String path) {
+        try{
+            sprite = ImageIO.read(new File(path));
+        }   catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
-    //increments the enemy's HP by given amount
     public void heal(int healAmount) {
         health += healAmount;
-    }
-
-    //overloaded heal method that generates the heal amount in the method
-    public void heal() {
-        health += (int) (Math.random() * 20) + 1;
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
     }
 
     //decrements the enemy's HP by given amount
     public void attacked(int DMGAmount) {
         health -= DMGAmount;
+        if (health <= 0) {
+            health = 0;
+        }
     }
 
-    //overloaded attack method that generates the DMG amount in the method
-    public void attacked() {
-        health -= (int) (Math.random() * 20) + 1;
-    }
 }

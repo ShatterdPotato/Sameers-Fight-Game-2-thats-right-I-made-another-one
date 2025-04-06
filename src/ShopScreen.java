@@ -30,6 +30,7 @@ public class ShopScreen extends JPanel implements ActionListener {
         cashierText.setOpaque(false);
         cashierText.setFocusable(false);
         cashierText.setWrapStyleWord(true);
+        cashierText.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
         cashierText.setBounds(402, 34, 223, 67);
         cashierText.setLocation(402, 34);
 
@@ -137,13 +138,13 @@ public class ShopScreen extends JPanel implements ActionListener {
         shopMenu.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 11));
         shopMenu.setText(
                 "                      MENU                    \n" +
-                "1. Food (Random)......................Cost:5 \n" +
-                "2. Wooden Sword..............DMG: 3,  Cost:10\n" +
-                "3. Alarm Clock...............DMG: 5,  Cost:20\n" +
-                "4. Gold Scar.................DMG: 7,  Cost:35\n" +
-                "5. College Rejection Letter..DMG: 5,  Cost:45\n" +
-                "6. Dark Magic for Dummies....DMG: 10, Cost:65\n" +
-                "7. Legendary Zenith..........DMG: 15, Cost:65\n"
+                "1. Food (Random)......................Cost:5  \n" +
+                "2. Wooden Sword..............DMG: 3,  Cost:10 \n" +
+                "3. Alarm Clock...............DMG: 5,  Cost:20 \n" +
+                "4. Gold Scar.................DMG: 7,  Cost:35 \n" +
+                "5. College Rejection Letter..DMG: 5,  Cost:45 \n" +
+                "6. Dark Magic for Dummies....DMG: 10, Cost:65 \n" +
+                "7. Legendary Zenith..........DMG: 15, Cost:100\n"
         );
         shopMenu.setBounds(460, 275, 320, 310);
         shopMenu.setLocation(460,275);

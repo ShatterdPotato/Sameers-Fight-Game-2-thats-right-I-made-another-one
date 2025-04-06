@@ -10,15 +10,25 @@ public class Enemy extends Character{
         int random = (int) (Math.random() * 5) + 1;
         switch (random) {
             case 1:
-                setName("Zombie");
+                setName("Mr. Miller");
+                setSprite("src\\miller.png");
+                break;
             case 2:
                 setName("Skeleton");
+                setSprite("src\\skeleton.png");
+                break;
             case 3:
-                setName("Mummy");
+                setName("Dwayne the Rock Johnson");
+                setSprite("src\\rock.png");
+                break;
             case 4:
-                setName("Spider");
+                setName("Evil Player");
+                setSprite("src\\evil_player.png");
+                break;
             default:
-                setName("Ghoul");
+                setName("Zombie");
+                setSprite("src\\zombie.png");
+                break;
         }
     }
 }
