@@ -2,6 +2,7 @@ public class Map {
     private char[][] mapGrid;
     private int[] playerCoords;
     private int[] enemyCoords;
+    private int[][] bushCoords;
     private Player player;
 
     public Map(Player player, Shop shop) {
@@ -13,7 +14,9 @@ public class Map {
             }
         }
         mapGrid[4][4] = '$'; //player
-        mapGrid[7][2] = '%';//shop
+        mapGrid[7][2] = '%';
+        mapGrid[6][3] = '%';
+        mapGrid[7][3] = '%';
         playerCoords = new int[]{4, 4};
 
         generateEnemyCoords();
@@ -32,7 +35,7 @@ public class Map {
             case 87: //w
                 if (playerCoords[1] > 0) {
                     checkCoords(playerCoords[0], playerCoords[1] - 1);
-                    mapGrid[playerCoords[0]][playerCoords[1]] = '#';
+                    mapGrid[playerCoords[0]][playerCoords[1]] = returnOrigChar(playerCoords);
                     mapGrid[playerCoords[0]][playerCoords[1] - 1] = '$';
                     playerCoords[1]--;
                 }
@@ -40,7 +43,7 @@ public class Map {
             case 65: //a
                 if (playerCoords[0] > 0) {
                     checkCoords(playerCoords[0] - 1, playerCoords[1]);
-                    mapGrid[playerCoords[0]][playerCoords[1]] = '#';
+                    mapGrid[playerCoords[0]][playerCoords[1]] = returnOrigChar(playerCoords);
                     mapGrid[playerCoords[0] - 1][playerCoords[1]] = '$';
                     playerCoords[0]--;
                 }
@@ -48,7 +51,7 @@ public class Map {
             case 83: //s
                 if (playerCoords[1] < mapGrid.length - 3) {
                     checkCoords(playerCoords[0], playerCoords[1] + 1);
-                    mapGrid[playerCoords[0]][playerCoords[1]] = '#';
+                    mapGrid[playerCoords[0]][playerCoords[1]] = returnOrigChar(playerCoords);
                     mapGrid[playerCoords[0]][playerCoords[1] + 1] = '$';
                     playerCoords[1]++;
                 }
@@ -56,7 +59,7 @@ public class Map {
             case 68:  //d
                 if (playerCoords[0] <= mapGrid[0].length) {
                     checkCoords(playerCoords[0] + 1, playerCoords[1]);
-                    mapGrid[playerCoords[0]][playerCoords[1]] = '#';
+                    mapGrid[playerCoords[0]][playerCoords[1]] = returnOrigChar(playerCoords);
                     mapGrid[playerCoords[0] + 1][playerCoords[1]] = '$';
                     playerCoords[0]++;
                 }
@@ -71,20 +74,20 @@ public class Map {
 
     private void checkCoords(int x, int y) {
         if (mapGrid[x][y] == '%') {
-            System.out.println("HI");
+            GameWindow.cycleScreen(new ShopScreen(player));
         }   else if (mapGrid[x][y] == 'X') {
             GameWindow.cycleScreen(new FightScreen(player));
         }
     }
 
     private void generateEnemyCoords() {
-        int[][] bushCoords = generateBushes();
+        generateBushes();
         enemyCoords = bushCoords[(int) (Math.random() * bushCoords.length)];
         mapGrid[enemyCoords[0]][enemyCoords[1]] = 'X';
     }
 
-    private int[][] generateBushes() {
-        int[][] bushCoords = new int[(int) (Math.random() * 12) + 5][2];
+    private void generateBushes() {
+        bushCoords = new int[(int) (Math.random() * 12) + 5][2];
         for (int i = 0; i < bushCoords.length; i++ ) {
             int x = (int) (Math.random() * 8);
             int y = (int) (Math.random() * 6);
@@ -96,6 +99,21 @@ public class Map {
             bushCoords[i][0] = x;
             bushCoords[i][1] = y;
         }
-        return bushCoords;
+    }
+
+    private char returnOrigChar(int[] coords) {
+        for (int[] bushCoord : bushCoords) {
+            if (sameCoords(bushCoord, coords)) {
+                return '*';
+            }
+        }
+        if ((coords[0] == 6 && coords[1] == 3) || (coords[0] == 7 && coords[1] == 2) || (coords[0] == 7 && coords[1] == 3)) {
+            return '%';
+        }
+        return '#';
+    }
+
+    private boolean sameCoords(int[] coords1, int[] coords2) {
+        return coords1[0] == coords2[0] && coords1[1] == coords2[1];
     }
 }

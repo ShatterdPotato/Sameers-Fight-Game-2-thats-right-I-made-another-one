@@ -14,7 +14,7 @@ public class MapScreen extends JPanel implements KeyListener {
     private Shop shop;
 
     public MapScreen(Player player) {
-        shop = new Shop();
+        shop = new Shop(player);
         this.map = new Map(player, shop);
         addKeyListener(this);
         setFocusable(true);
@@ -56,15 +56,11 @@ public class MapScreen extends JPanel implements KeyListener {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        g2d.drawImage(shop.getSprite(), 600, 200, null);
+        g2d.drawImage(player.getSprite(), map.getPlayerCoords()[0] * 100, map.getPlayerCoords()[1] * 100, null);
         for (int i = 0; i < map.getMapGrid().length; i++) {
             for (int j = 0; j < map.getMapGrid()[0].length; j++) {
                 switch(map.getMapGrid()[i][j]) {
-                    case '$':
-                        g2d.drawImage(player.getSprite(), map.getPlayerCoords()[0] * 100, map.getPlayerCoords()[1] * 100, null);
-                        break;
-                    case '%':
-                        g2d.drawImage(shop.getSprite(), i * 100, j * 100, null);
-                        break;
                     case '*':
                         g2d.drawImage(bush, i * 100, j * 100, null);
                         break;

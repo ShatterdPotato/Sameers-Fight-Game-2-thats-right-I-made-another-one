@@ -11,7 +11,7 @@ public class StartScreen extends JPanel implements ActionListener {
     private JButton continueButton;
     private JButton yesButton;
     private JButton noButton;
-    private String currMessage;
+    private JTextArea currMessage;
     private ArrayList<String> dialouge;
     private int diagTracker;
     private JTextField nameBox;
@@ -21,8 +21,21 @@ public class StartScreen extends JPanel implements ActionListener {
         add(continueButton = new JButton("Continue"));
         continueButton.addActionListener(this);
         nameBox = new JTextField(10);
+        yesButton = new JButton("Yes");
+        yesButton.addActionListener(this);
+        noButton = new JButton("No");
+        noButton.addActionListener(this);
         compileDialogue();
-        currMessage = dialouge.getFirst();
+        currMessage = new JTextArea(dialouge.getFirst());
+        currMessage.setEditable(false);
+        currMessage.setLineWrap(true);
+        currMessage.setOpaque(false);
+        currMessage.setFocusable(false);
+        currMessage.setWrapStyleWord(true);
+        currMessage.setBounds(20,0, 760, 400);
+
+        currMessage.setFont(new Font("Arial", Font.BOLD, 16));
+        add(currMessage);
     }
 
     @Override
@@ -30,9 +43,10 @@ public class StartScreen extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.BLACK);
-        g.drawString(currMessage, 20, 20);
-        continueButton.setLocation(getWidth() / 2 - 100, 20);
-        nameBox.setLocation(100, 100);
+        continueButton.setLocation(400, 200);
+        nameBox.setLocation(200, 200);
+        yesButton.setLocation(200, 200);
+        noButton.setLocation(300, 200);
     }
 
     @Override
@@ -45,21 +59,19 @@ public class StartScreen extends JPanel implements ActionListener {
                 case 2:
                     nameBox.setVisible(true);
                     add(nameBox);
-                    currMessage = dialouge.get(diagTracker);
+                    currMessage.setText(dialouge.get(diagTracker));
                     break;
                 case 3:
                     String name = nameBox.getText();
                     player = new Player(20, 0, name);
                     nameBox.setVisible(false);
-                    currMessage = name + dialouge.get(diagTracker);
+                    currMessage.setText(name + dialouge.get(diagTracker));
                     break;
                 case 4:
                     continueButton.setVisible(false);
-                    add(yesButton = new JButton("Yes"));
-                    yesButton.addActionListener(this);
-                    add(noButton = new JButton("No"));
-                    noButton.addActionListener(this);
-                    currMessage = dialouge.get(diagTracker);
+                    add(yesButton);
+                    add(noButton);
+                    currMessage.setText(dialouge.get(diagTracker));
                     break;
                 case 6:
                     break;
@@ -69,7 +81,7 @@ public class StartScreen extends JPanel implements ActionListener {
                     }
                     continueButton.setText("Start Game");
                 default:
-                    currMessage = dialouge.get(diagTracker);
+                    currMessage.setText(dialouge.get(diagTracker));
             }
         }   else if (e.getSource() == yesButton) {
             yesButton.setVisible(false);
@@ -77,13 +89,13 @@ public class StartScreen extends JPanel implements ActionListener {
             continueButton.setVisible(true);
             diagTracker = 5;
             continueButton.setText("View Tutorial");
-            currMessage = dialouge.get(diagTracker);
+            currMessage.setText(dialouge.get(diagTracker));
         }   else if (e.getSource() == noButton) {
             noButton.setVisible(false);
             yesButton.setVisible(false);
             continueButton.setVisible(true);
             diagTracker = 6;
-            currMessage = dialouge.get(diagTracker);
+            currMessage.setText(dialouge.get(diagTracker));
         }
         validate();
         repaint();

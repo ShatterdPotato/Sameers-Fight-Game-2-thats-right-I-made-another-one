@@ -24,4 +24,6 @@ public class Misc {
                 return "This message has a 1/10 chance of appearing when you don't know how to use your keyboard properly, so consider yourself lucky. Or not.";
         }
     }
+
+
 }
