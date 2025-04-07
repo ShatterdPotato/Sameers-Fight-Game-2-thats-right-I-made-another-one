@@ -1,3 +1,8 @@
+package screens;
+import logic_classes.Map;
+import logic_classes.Player;
+import logic_classes.Shop;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class MapScreen extends JPanel implements KeyListener {
     private Map map;
@@ -51,8 +55,8 @@ public class MapScreen extends JPanel implements KeyListener {
         BufferedImage bush = null;
         BufferedImage enemyBush = null;
         try {
-            bush = ImageIO.read(new File("src\\bush.png"));
-            enemyBush = ImageIO.read(new File("src\\enemy_bush.png"));
+            bush = ImageIO.read(new File("src\\sprites\\bush.png"));
+            enemyBush = ImageIO.read(new File("src\\sprites\\enemy_bush.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

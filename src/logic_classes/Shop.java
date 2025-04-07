@@ -1,3 +1,5 @@
+package logic_classes;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,7 +13,7 @@ public class Shop {
 
     public Shop(Player player) {
         try {
-            sprite = ImageIO.read(new File("src\\shop.png"));
+            sprite = ImageIO.read(new File("src\\sprites\\shop.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

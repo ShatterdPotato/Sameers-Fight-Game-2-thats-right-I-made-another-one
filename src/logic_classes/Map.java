@@ -1,3 +1,9 @@
+package logic_classes;
+
+import screens.FightScreen;
+import screens.GameWindow;
+import screens.ShopScreen;
+
 public class Map {
     private char[][] mapGrid;
     private int[] playerCoords;

@@ -1,3 +1,5 @@
+package logic_classes;
+
 public class Item {
     private String name;
 

@@ -1,3 +1,5 @@
+package logic_classes;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class Player extends Character {
         inventory = new ArrayList<>();
         coins = 20;
         battelesWon = 0;
-        setSprite("src\\player.png");
+        setSprite("src\\sprites\\player.png");
     }
 
     public int getCoins() {

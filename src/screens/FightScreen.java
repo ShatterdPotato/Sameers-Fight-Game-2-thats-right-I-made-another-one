@@ -1,3 +1,10 @@
+package screens;
+
+import logic_classes.Enemy;
+import logic_classes.Food;
+import logic_classes.Player;
+import logic_classes.Weapon;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -25,52 +32,23 @@ public class FightScreen extends JPanel implements ActionListener, KeyListener {
     public FightScreen(Player player) {
         this.player = player;
         player.heal((int) (Math.random() * 5) + 1);
-        enemy = new Enemy();
+        enemy = new Enemy(player.getBattlesWon());
         won = false;
         lost = false;
         playerTurn = true;
         setLayout(null);
         addKeyListener(this);
-        fightButton = new JButton("Attack");
-        healButton = new JButton("Heal");
-        fightButton.addActionListener(this);
-        healButton.addActionListener(this);
-        fightButton.setBounds(400, 400, 400, 100);
-        healButton.setBounds(400, 500, 400, 100);
-        fightButton.setFont(new Font("Arial", Font.BOLD, 20));
-        healButton.setFont(new Font("Arial", Font.BOLD, 20));
-        playerHP = new JLabel(player.getName() + " HP: " + player.getHealth() + "/" + player.getMaxHealth());
-        playerHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-        playerHP.setBounds(475, 290, 310, 55);
-        enemyHP = new JLabel(enemy.getName() + " HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
-        enemyHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-        enemyHP.setBounds(15, 65, 310, 55);
-        statusTXT = new JTextArea("It seems that a " + enemy.getName() + " dared enter the presence of " + player.getName());
-        statusTXT.setEditable(false);
-        statusTXT.setLineWrap(true);
-        statusTXT.setFocusable(false);
-        statusTXT.setWrapStyleWord(true);
-        statusTXT.setOpaque(false);
-        statusTXT.setFont(new Font("Arial", Font.BOLD, 20));
-        statusTXT.setForeground(Color.BLACK);
-        statusTXT.setBounds(20, 450, 360, 160);
-        continueTXT = new JLabel("Press enter to continue");
-        continueTXT.setFont(new Font("Impact", Font.PLAIN, 30));
-        continueTXT.setForeground(Color.RED);
-        continueTXT.setBounds(20, 525, 400, 30);
-        continueTXT.setVisible(false);
-        add(statusTXT);
-        add(continueTXT);
-        add(fightButton);
-        add(healButton);
-        add(playerHP);
-        add(enemyHP);
+
+        initializeButtons();
+        initializeHPBars();
+        initializeStatusTXT();
+        initializeContinueTXT();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         try {
-            BufferedImage bg = ImageIO.read(new File("src\\fight_bg.png"));
+            BufferedImage bg = ImageIO.read(new File("src\\sprites\\fight_bg.png"));
             g.drawImage(bg, 0, 0 ,null);
         }   catch (IOException e) {
             System.out.println(e.getMessage());
@@ -185,5 +163,53 @@ public class FightScreen extends JPanel implements ActionListener, KeyListener {
             continueTXT.setVisible(true);
         }
 
+    }
+
+    private void initializeButtons() {
+        fightButton = new JButton("Attack");
+        fightButton.addActionListener(this);
+        fightButton.setBounds(400, 400, 400, 100);
+        fightButton.setFont(new Font("Arial", Font.BOLD, 20));
+        add(fightButton);
+
+        healButton = new JButton("Heal");
+        healButton.addActionListener(this);
+        healButton.setBounds(400, 500, 400, 100);
+        healButton.setFont(new Font("Arial", Font.BOLD, 20));
+        add(healButton);
+    }
+
+    private void initializeHPBars() {
+        playerHP = new JLabel(player.getName() + " HP: " + player.getHealth() + "/" + player.getMaxHealth());
+        playerHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+        playerHP.setBounds(475, 290, 310, 55);
+        add(playerHP);
+
+        enemyHP = new JLabel(enemy.getName() + " HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+        enemyHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+        enemyHP.setBounds(15, 65, 310, 55);
+        add(enemyHP);
+    }
+
+    private void initializeStatusTXT() {
+        statusTXT = new JTextArea("It seems that a " + enemy.getName() + " dared enter the presence of " + player.getName());
+        statusTXT.setEditable(false);
+        statusTXT.setLineWrap(true);
+        statusTXT.setFocusable(false);
+        statusTXT.setWrapStyleWord(true);
+        statusTXT.setOpaque(false);
+        statusTXT.setFont(new Font("Arial", Font.BOLD, 20));
+        statusTXT.setForeground(Color.BLACK);
+        statusTXT.setBounds(20, 450, 360, 160);
+        add(statusTXT);
+    }
+
+    private void initializeContinueTXT() {
+        continueTXT = new JLabel("Press enter to continue");
+        continueTXT.setFont(new Font("Impact", Font.PLAIN, 30));
+        continueTXT.setForeground(Color.RED);
+        continueTXT.setBounds(20, 525, 400, 30);
+        continueTXT.setVisible(false);
+        add(continueTXT);
     }
 }

@@ -1,3 +1,6 @@
+package screens;
+import logic_classes.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -104,7 +107,7 @@ public class StartScreen extends JPanel implements ActionListener {
     private void compileDialogue() {
         dialouge = new ArrayList<>();
         try {
-            Scanner fileScanner = new Scanner(new File("src\\dialogue.txt"));
+            Scanner fileScanner = new Scanner(new File("src\\lang\\dialogue.txt"));
             while (fileScanner.hasNext()) {
                 dialouge.add(fileScanner.nextLine());
             }

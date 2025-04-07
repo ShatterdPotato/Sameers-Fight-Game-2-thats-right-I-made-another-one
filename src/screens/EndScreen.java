@@ -1,5 +1,8 @@
+package screens;
+
 import javax.swing.*;
 import java.awt.*;
+import logic_classes.Player;
 
 public class EndScreen extends JPanel {
     private Player player;

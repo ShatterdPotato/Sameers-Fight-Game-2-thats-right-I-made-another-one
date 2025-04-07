@@ -1,6 +1,10 @@
+package screens;
+import logic_classes.Misc;
+import logic_classes.Player;
+import logic_classes.Shop;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,38 +28,21 @@ public class ShopScreen extends JPanel implements ActionListener {
         this.player = player;
         this.shop = new Shop(player);
 
-        cashierText = new JTextArea("welcome to macdonl what need");
-        cashierText.setEditable(false);
-        cashierText.setLineWrap(true);
-        cashierText.setOpaque(false);
-        cashierText.setFocusable(false);
-        cashierText.setWrapStyleWord(true);
-        cashierText.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-        cashierText.setBounds(402, 34, 223, 67);
-        cashierText.setLocation(402, 34);
-
-        confirmButton = new JButton("Yeah");
-        confirmButton.setVisible(false);
-        confirmButton.addActionListener(this);
-
-        cancelButton = new JButton("Nah");
-        cancelButton.setVisible(false);
-        cancelButton.addActionListener(this);
-
+        initializeCashierText();
+        initializeButtons();
+        initializeShopMenu();
         textBox = new JTextField(15);
         textBox.addActionListener(this);
+        add(textBox);
 
         numCoins = new JLabel(String.valueOf(player.getCoins()));
         numCoins.setFont(new Font("Arial", Font.BOLD, 40));
-
-        add(textBox);
         add(numCoins);
-        createMenu();
     }
 
     public void paintComponent(Graphics g) {
         try {
-            BufferedImage bg = ImageIO.read(new File("src\\shop_bg.png"));
+            BufferedImage bg = ImageIO.read(new File("src\\sprites\\shop_bg.png"));
             g.drawImage(bg, 0, 0 ,null);
         }   catch (IOException e) {
             System.out.println(e.getMessage());
@@ -70,7 +57,6 @@ public class ShopScreen extends JPanel implements ActionListener {
         add(textBox);
         add(confirmButton);
         add(cancelButton);
-        add(numCoins);
         displayWallet(g);
         shopMenu.setBounds(460, 275, 320, 310);
         shopMenu.setLocation(460,275);
@@ -120,16 +106,15 @@ public class ShopScreen extends JPanel implements ActionListener {
 
     private void displayWallet(Graphics g) {
         try {
-            BufferedImage coin = ImageIO.read(new File("src\\coin.png"));
+            BufferedImage coin = ImageIO.read(new File("src\\sprites\\coin.png"));
             g.drawImage(coin, 0, 0, null);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
+        add(numCoins);
     }
 
-    private void createMenu() {
+    private void initializeShopMenu() {
         shopMenu = new JTextArea();
         shopMenu.setEditable(false);
         shopMenu.setLineWrap(true);
@@ -138,16 +123,38 @@ public class ShopScreen extends JPanel implements ActionListener {
         shopMenu.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 11));
         shopMenu.setText(
                 "                      MENU                    \n" +
-                "1. Food (Random)......................Cost:5  \n" +
-                "2. Wooden Sword..............DMG: 3,  Cost:10 \n" +
-                "3. Alarm Clock...............DMG: 5,  Cost:20 \n" +
-                "4. Gold Scar.................DMG: 7,  Cost:35 \n" +
-                "5. College Rejection Letter..DMG: 5,  Cost:45 \n" +
-                "6. Dark Magic for Dummies....DMG: 10, Cost:65 \n" +
-                "7. Legendary Zenith..........DMG: 15, Cost:100\n"
+                        "1. Food (Random)......................Cost:5  \n" +
+                        "2. Wooden Sword..............DMG: 3,  Cost:10 \n" +
+                        "3. Alarm Clock...............DMG: 5,  Cost:20 \n" +
+                        "4. Gold Scar.................DMG: 7,  Cost:35 \n" +
+                        "5. College Rejection Letter..DMG: 5,  Cost:45 \n" +
+                        "6. Dark Magic for Dummies....DMG: 10, Cost:65 \n" +
+                        "7. Legendary Zenith..........DMG: 15, Cost:100\n"
         );
         shopMenu.setBounds(460, 275, 320, 310);
         shopMenu.setLocation(460,275);
         add(shopMenu);
+    }
+
+    private void initializeCashierText() {
+        cashierText = new JTextArea("welcome to macdonl what need");
+        cashierText.setEditable(false);
+        cashierText.setLineWrap(true);
+        cashierText.setOpaque(false);
+        cashierText.setFocusable(false);
+        cashierText.setWrapStyleWord(true);
+        cashierText.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+        cashierText.setBounds(402, 34, 223, 67);
+        cashierText.setLocation(402, 34);
+    }
+
+    private void initializeButtons() {
+        confirmButton = new JButton("Yeah");
+        confirmButton.setVisible(false);
+        confirmButton.addActionListener(this);
+
+        cancelButton = new JButton("Nah");
+        cancelButton.setVisible(false);
+        cancelButton.addActionListener(this);
     }
 }

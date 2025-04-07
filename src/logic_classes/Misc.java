@@ -1,3 +1,5 @@
+package logic_classes;
+
 public class Misc {
     public static String extraneousResponse() {
         int rand = (int) (Math.random() * 10) + 1;
